@@ -225,10 +225,10 @@ package struct FS
 
         static char[] join (const(char[])[] paths...)
         {
-                char[] result;
 
                 if (paths.length)
                 {
+                    char[] result;
                     result ~= stripped(paths[0]);
 
                     foreach (path; paths[1 .. $-1])
@@ -238,7 +238,7 @@ package struct FS
 
                    return result;
                 }
-                return "".dup;
+                return [];
         }
 
         /***********************************************************************
@@ -1690,6 +1690,10 @@ char[][] collate (const(char)[] path, const(char)[] pattern, bool recurse=false)
 
 *******************************************************************************/
 
+string sjoin(const(char[])[] paths...) {
+    return join(paths).idup;
+}
+
 char[] join (const(char[])[] paths...)
 {
         return FS.join (paths);
@@ -1723,7 +1727,7 @@ char[] standard (char[] path)
 
 *******************************************************************************/
 
-char[] native (char[] path)
+inout(char)[] native (inout(char)[] path)
 {
         version (Win32)
                  replace (path, '/', '\\');
@@ -2070,6 +2074,10 @@ debug (UnitTest)
         Note: Allocates memory.
 
 *******************************************************************************/
+
+string normalize(const(char)[] in_path) {
+    return normalize(in_path, null).idup;
+}
 
 char[] normalize (const(char)[] in_path, char[] buf = null)
 {

@@ -6,6 +6,7 @@ module tango.sys.win32.Types;
 */
 
 /+ Aliases, Types, and Constants +/
+version (Windows) {
 const void* NULL = null;
 alias int SCODE;
 alias void VOID;
@@ -14318,3 +14319,5 @@ int CO_E_OBJNOTCONNECTED = (DWORD)((0x800401FD));
 int CO_E_APPDIDNTREG = (DWORD)((0x800401FE));
 int CO_E_RELEASED = (DWORD)((0x800401FF));
 */
+
+}

@@ -111,6 +111,10 @@ struct Environment
             return fp.cString()[0..$-1];
         }
 
+        static immutable(char)[] toAbsolute(const(char)[] path) {
+            return toAbsolute(path.dup).idup;
+        }
+
         /***********************************************************************
 
                 Returns the full path location of the provided executable

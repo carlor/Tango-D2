@@ -12,6 +12,8 @@
 
 module tango.io.stream.Bzip;
 
+version (HaveBzip) {
+
 private import tango.util.compress.c.bzlib;
 
 private import tango.core.Exception : IOException;
@@ -612,5 +614,7 @@ unittest
     buffer = buffer[0 .. decomp.read(buffer)];
 
     assert( cast(ubyte[])message == buffer );
+}
+
 }
 

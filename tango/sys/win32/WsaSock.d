@@ -1,5 +1,6 @@
 module tango.sys.win32.WsaSock;
 
+version (Windows) {
 public import tango.sys.Common;
 
 struct Guid
@@ -51,5 +52,7 @@ extern (Windows)
         int WSAIoctl (HANDLE s, DWORD op, LPVOID inBuf, DWORD cbIn, LPVOID outBuf, DWORD cbOut, DWORD* result, LPOVERLAPPED, void*);
         int WSARecv (HANDLE, WSABUF*, DWORD, DWORD*, DWORD*, OVERLAPPED*, void*);
         int WSASend (HANDLE, WSABUF*, DWORD, DWORD*, DWORD, OVERLAPPED*, void*);
+}
+
 }
 

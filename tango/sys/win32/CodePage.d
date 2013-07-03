@@ -12,6 +12,7 @@
 
 module tango.sys.win32.CodePage;
 
+version (Windows) {
 private import tango.sys.Common;
 
 private import tango.core.Exception;
@@ -147,4 +148,5 @@ debug(Test)
                       s = CodePage.into (s, x);
                       s = CodePage.from (s, x);
         }
+}
 }

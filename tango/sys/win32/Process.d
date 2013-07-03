@@ -5,7 +5,7 @@
 
 module tango.sys.win32.Process;
 
-
+version (Windows) {
 private
 {
     import tango.stdc.stdint;
@@ -89,3 +89,5 @@ intptr_t _wexecv(const(wchar_t)*, const(wchar_t)**);
 intptr_t _wexecve(const(wchar_t)*, const(wchar_t)**, const(wchar_t)**);
 intptr_t _wexecvp(const(wchar_t)*, const(wchar_t)**);
 intptr_t _wexecvpe(const(wchar_t)*, const(wchar_t)**, const(wchar_t)**);
+
+}

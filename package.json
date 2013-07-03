@@ -1,0 +1,12 @@
+{
+	"name": "tango",
+	"description": "A port of the Tango library to D2",
+	"homepage": "http://siegelord.github.io/Tango-D2/",
+	"copyright": "Copyright (c) 2004-2008, Tango contributors",
+	"authors": [
+		"SiegeLord"
+	],
+	"dependencies": {},
+    "sourcePaths": ["tango"],
+    "targetType": "library"
+}

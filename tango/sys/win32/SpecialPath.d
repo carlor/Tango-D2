@@ -12,6 +12,7 @@
 
 module tango.sys.win32.SpecialPath;
 
+version (Windows) {
 private import tango.text.convert.Utf;
 private import tango.sys.Common;
 private import tango.sys.win32.CodePage;
@@ -118,4 +119,6 @@ char[] getSpecialPath( int csidl )
             throw new Exception( "getSpecialPath :: " ~ SysError.lastMsg.idup );
         return toString(fromString16z(spath));
     }
+}
+
 }

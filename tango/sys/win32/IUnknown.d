@@ -7,7 +7,7 @@
  * Authors:   Walter Bright, Sean Kelly
  */
 module tango.sys.win32.IUnknown;
-
+version (Windows) {
 
 private
 {
@@ -61,4 +61,6 @@ template IUnknownImpl()
 
 private:
     ULONG m_count = 1;
+}
+
 }

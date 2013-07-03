@@ -6,6 +6,8 @@ module tango.sys.win32.Macros;
 */
 
 /+ Imports +/
+
+version (Windows) {
 public
 {
     import tango.sys.win32.Types;
@@ -207,4 +209,6 @@ void MoveMemory(void* dest, const(void)* src, uint len)
 void CopyMemory(void* dest, const(void)* src, uint len)
 {
 	memcpy(dest, src, len);
+}
+
 }

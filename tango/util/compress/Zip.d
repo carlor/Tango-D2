@@ -1343,7 +1343,7 @@ private:
         header.data = data;
         if (p.isAbsolute)
             f_name = f_name[p.root.length+1..$]; 
-        header.file_name = f_name;
+        header.file_name = f_name.dup;
 
         // Write out the header and the filename
         auto header_pos = seeker.seek(0, seeker.Anchor.Current);
@@ -1742,7 +1742,7 @@ void extractArchive(const(char)[] archive, const(char)[] dest)
             entry.info.name[$-1] == '\\') continue;
 
         auto path = Path.join(dest, entry.info.name);
-        path = Path.normalize(path);
+        path = Path.normalize(path).dup;
 
         // Create the parent directory if necessary.
         auto parent = Path.parse(path).parent;

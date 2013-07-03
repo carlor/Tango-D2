@@ -102,6 +102,15 @@ struct Console
 
                 **************************************************************/
 
+                final bool readln (ref string content, bool raw=false)
+                {
+                    import std.exception;
+                    char[] buff;
+                    auto r = readln(buff, raw);
+                    content = buff.assumeUnique;
+                    return r;
+                }
+
                 final bool readln (ref char[] content, bool raw=false)
                 {
                         size_t line (const(void)[] input)

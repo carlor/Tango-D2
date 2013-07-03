@@ -5,6 +5,7 @@ Module: Windows Functions
 Author: Trevor Parscal
 */
 
+version (Windows) {
 /+ Imports +/
 public
 {
@@ -1771,4 +1772,6 @@ version(Win32SansUnicode){
   alias SHFileOperationW SHFileOperation;
   alias SHGetFileInfoW SHGetFileInfo;
   alias SHGetPathFromIDListW SHGetPathFromIDList;
+}
+
 }

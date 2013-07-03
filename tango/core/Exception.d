@@ -100,9 +100,9 @@ class SyncException : PlatformException
  */
 class IOException : PlatformException
 {
-    this( immutable(char)[] msg )
+    this( const(char)[] msg )
     {
-        super( msg );
+        super( msg.idup );
     }
 }
 
@@ -288,6 +288,12 @@ class CorruptedIteratorException : NoSuchElementException
     this( immutable(char)[] msg )
     {
         super( msg );
+    }
+}
+
+class ArrayBoundsException : Exception {
+    this(immutable(char)[] msg) {
+        super(msg);
     }
 }
 

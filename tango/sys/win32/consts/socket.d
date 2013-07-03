@@ -9,7 +9,7 @@ enum : int
 {
         IOCPARM_MASK =  0x7f,
         IOC_IN =        0x80000000,
-        FIONBIO =       (IOC_IN | ((int.sizeof & IOCPARM_MASK) << 16) | (102 << 8) | 126),
+        FIONBIO = cast(int) (IOC_IN | ((int.sizeof & IOCPARM_MASK) << 16) | (102 << 8) | 126),
 }
 
 /***************************************************************
