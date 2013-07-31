@@ -665,12 +665,14 @@ bool isValid (dchar c)
 
 *******************************************************************************/
 
-inout(T[]) fromString8(T) (inout(char[]) s, T[] dst) if (is (T == char))
+alias fromString8 = fromString!char;
+/+
+T[] fromString8(T) (inout(char)[] s, T[] dst) if (is (T == char))
 {
     return s;
 }
 
-T[] fromString8(T) (const(char[]) s, T[] dst) if (!is (T == char))
+T[] fromString8(T) (const(char)[] s, T[] dst) if (!is (T == char))
 {
         static if (is (T == wchar))
                    return .toString16 (s, dst);
@@ -678,7 +680,7 @@ T[] fromString8(T) (const(char[]) s, T[] dst) if (!is (T == char))
         static if (is (T == dchar))
                    return .toString32 (s, dst);
 }
-
++/
 /*******************************************************************************
 
         Convert from a wchar[] into the type of the dst provided. 
@@ -689,12 +691,14 @@ T[] fromString8(T) (const(char[]) s, T[] dst) if (!is (T == char))
 
 *******************************************************************************/
 
-inout(T[]) fromString16(T) (inout(wchar[]) s, T[] dst) if (is (T == wchar))
+alias fromString16 = fromString!wchar;
+/+
+inout(T[]) fromString16(T) (inout(wchar)[] s, T[] dst) if (is (T == wchar))
 {
     return s;
 }
 
-T[] fromString16(T) (const(wchar[]) s, T[] dst) if (!is (T == wchar))
+T[] fromString16(T) (const(wchar)[] s, T[] dst) if (!is (T == wchar))
 {
         static if (is (T == char))
                    return .toString (s, dst);
@@ -702,7 +706,7 @@ T[] fromString16(T) (const(wchar[]) s, T[] dst) if (!is (T == wchar))
         static if (is (T == dchar))
                    return .toString32 (s, dst);
 }
-
++/
 /*******************************************************************************
 
         Convert from a dchar[] into the type of the dst provided. 
@@ -713,6 +717,8 @@ T[] fromString16(T) (const(wchar[]) s, T[] dst) if (!is (T == wchar))
 
 *******************************************************************************/
 
+alias fromString32 = fromString!dchar;
+/+
 inout(T[]) fromString32(T) (inout(dchar[]) s, T[] dst) if (is (T == dchar))
 {
     return s;
@@ -725,6 +731,18 @@ T[] fromString32(T) (const(dchar[]) s, T[] dst) if (!is (T == dchar))
 
         static if (is (T == wchar))
                    return .toString16 (s, dst);
+}
++/
+template fromString(C) {
+    T[] fromString(S, T)(S s, T[] dst) {
+        static if (is(T == char)) {
+            return toString(s.dup, dst);
+        } else static if (is(T == wchar)) {
+            return toString16(s.dup, dst);
+        } else static if (is(T == dchar)) {
+            return toString32(s.dup, dst);
+        } else static assert(0, "fromString to what???");
+    }
 }
 
 /*******************************************************************************

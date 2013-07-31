@@ -441,7 +441,8 @@ class Layout(T)
 
         private uint parse (const(T)[] layout, TypeInfo[] ti, Arg[] args, Sink sink)
         {
-                T[512] result = void;
+                import std.array;
+                T[] result = uninitializedArray!(T[])(512);
                 int length, nextIndex;
 
 
