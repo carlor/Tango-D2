@@ -92,7 +92,7 @@ T[] fromEntity (T) (const(T)[] src, T[] dst = null)
 
         if(dst.length < src.length)
             dst.length = src.length;
-        dst[0..src.length] = src;
+        dst[0..src.length] = src[];
         return dst[0..src.length];
 }
 
