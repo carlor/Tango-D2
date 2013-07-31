@@ -882,6 +882,7 @@ class SaxParser(Ch = char) : XMLReader!(Ch), Locator!(Ch) {
         private bool hasStartElement = false;
         private const(Ch)[] startElemName;
         private PullParser!(Ch) parser;
+        private bool cancelled;
 
         /*******************************************************************************
          *******************************************************************************/
@@ -1241,6 +1242,13 @@ class SaxParser(Ch = char) : XMLReader!(Ch), Locator!(Ch) {
         public void reset() {
                 parser.reset();
         }
+        
+        /*******************************************************************************
+         *         Stops going through the document, mid-way.
+         *******************************************************************************/
+        public void cancel() {
+                cancelled = true;
+        }
 
         /*******************************************************************************
          *         The meat of the class.  Turn the pull parser's nodes into SAX
@@ -1249,7 +1257,8 @@ class SaxParser(Ch = char) : XMLReader!(Ch), Locator!(Ch) {
         private void doParse() {
                 saxHandler.setDocumentLocator(this);
                 saxHandler.startDocument();
-                while (true) {
+            outer_loop:
+                while (!cancelled) {
                         switch (parser.next) {
                         case XmlTokenType.StartElement :
                                 if (hasStartElement) {
@@ -1295,13 +1304,14 @@ class SaxParser(Ch = char) : XMLReader!(Ch), Locator!(Ch) {
                                 break;
 
                         case XmlTokenType.Done:
-                             goto foo;
+                             break outer_loop;
 
                         default:
                                 throw new SAXException("unknown parser token type");
                         }
                 } 
 foo:                              
+                cancelled = false;
                 saxHandler.endDocument();
         }
 
